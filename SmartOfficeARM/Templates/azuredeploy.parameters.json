@@ -1,0 +1,35 @@
+﻿{
+
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+
+    "contentVersion": "1.0.0.0",
+
+  "parameters": {
+
+    "serviceBusNamespaceName": {
+
+      "value": "SmartOffice"
+
+    },
+
+    "serviceBusEventHubName": {
+
+      "value": "SmartOffice"
+
+    },
+
+    "serviceBusConsumerGroupName": {
+
+      "value": "default"
+
+    },
+
+    "serviceBusApiVersion": {
+
+      "value": "2015-08-01"
+
+    }
+
+  }
+
+}

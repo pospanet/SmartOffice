@@ -3,7 +3,7 @@
 #Requires -Module Azure.Storage
 
 Param(
-    [string] [Parameter(Mandatory=$true)] $ResourceGroupLocation,
+    [string] $ResourceGroupLocation = 'North Europe',
     [string] $ResourceGroupName = 'SmartOffice',
     [switch] $UploadArtifacts,
     [string] $StorageAccountName,

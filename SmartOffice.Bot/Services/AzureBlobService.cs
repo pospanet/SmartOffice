@@ -32,7 +32,7 @@ namespace SmartOffice.Bot.Services
                 appBlob.CreateOrReplace();
             }
 
-            appBlob.AppendText($"{filledForm.DidYouEnjoy},{filledForm.WhyNotEnjoy},{filledForm.BestStation.ToString()},{filledForm.WorstStation.ToString()},{filledForm.BestTechnology},{filledForm.NotEvenTheBot},{filledForm.UseInFuture},{filledForm.ConnectWithUs},{filledForm.Feedback}");
+            appBlob.AppendText($"{filledForm.DidYouEnjoy},{filledForm.WhyNotEnjoy},{filledForm.BestStation.ToString()},{filledForm.WorstStation.ToString()},{filledForm.BestTechnology},{filledForm.NotEvenTheBot},{filledForm.UseInFuture},{filledForm.ConnectWithUs},{filledForm.Feedback}\n\r");
 
             Debug.WriteLine(appBlob.DownloadText());
         }

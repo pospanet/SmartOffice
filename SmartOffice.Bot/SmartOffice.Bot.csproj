@@ -198,6 +198,7 @@
     </Compile>
     <Compile Include="Models\FeedbackEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AzureBlobService.cs" />
     <Compile Include="Services\AzureTableService.cs" />
   </ItemGroup>
   <ItemGroup>

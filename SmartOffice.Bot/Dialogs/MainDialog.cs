@@ -31,7 +31,7 @@ namespace SmartOffice.Bot.Dialogs
 
             if (!context.ConversationData.TryGetValue("Code", out Code))
             {
-                PromptDialog.Text(context, sessionEntered, "Do I know you? Please enter the code you got after tour.");
+                PromptDialog.Text(context, sessionEntered, "Do I know you? Please enter the code they gave you after the tour.");
             }
             else
             {
@@ -77,9 +77,15 @@ namespace SmartOffice.Bot.Dialogs
 
             context.ConversationData.SetValue("FormCompleted", true);
 
+            var res = await result;
+
             var ats = new AzureTableService();
-            ats.SaveAnswers(Code, await result);
-            Debug.WriteLine("Answers sent to Azure.");
+            ats.SaveAnswers(Code, res);
+            Debug.WriteLine("Answers sent to Azure Table.");
+
+            var abs = new AzureBlobService();
+            abs.AddFeedback(res);
+            Debug.WriteLine("Answers sent to Azure Blob.");
 
             context.Done(result);
         }

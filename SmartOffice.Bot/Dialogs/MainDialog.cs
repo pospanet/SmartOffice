@@ -48,19 +48,23 @@ namespace SmartOffice.Bot.Dialogs
                 context.ConversationData.SetValue("Code", Code);
             }
 
-            // stats
-
-            // questions
             bool formCompleted;
             if (!context.ConversationData.TryGetValue("FormCompleted", out formCompleted))
             {
-                var questionFormDialog = Chain.From(() => FormDialog.FromForm(FeedbackForm.BuildForm));
+                var ats = new AzureTableService();
+                var data = ats.GetTourInfo(Code);
+
+                await context.PostAsync($"People in your group took **{data.Item2}** steps.");
+                await context.PostAsync($"You contributed to that with **{data.Item1}** steps.");
+                Thread.Sleep(2000);
+
+                var questionFormDialog = Chain.From(() => FormDialog.FromForm(FeedbackForm.BuildForm, FormOptions.PromptInStart));
                 context.Call(questionFormDialog, afterForm);
-                //context.Call(FormDialog.FromForm(FeedbackForm.BuildForm), afterForm);
+                //await context.Forward(questionFormDialog, afterForm, true, CancellationToken.None);
             }
             else
             {
-                await context.PostAsync("Nice to see you again. Are you interested in anything regarding your tour?");
+                await context.PostAsync("Nice to see you again. Are you interested in anything regarding your tour?", null, CancellationToken.None);
                 await context.PostAsync("Feel free to ask tings like:\n\r* How tall is the building?\n\r* How many people work here?");
                 context.Wait(SearchMessageReceived);
             }
@@ -89,7 +93,7 @@ namespace SmartOffice.Bot.Dialogs
             abs.AddFeedback(res);
             Debug.WriteLine("Answers sent to Azure Blob.");
 
-            context.Done(result);
+            context.Wait<Activity>(MessageReceivedAsync);
         }
     }
 }

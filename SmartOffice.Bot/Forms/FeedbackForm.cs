@@ -30,7 +30,7 @@ namespace SmartOffice.Bot.Forms
     [Template(TemplateUsage.EnumSelectOne, "{&} {||}", FieldCase=CaseNormalization.None)]
     public class FeedbackForm
     {
-        [Prompt("Did you enjoy visit in our office?")]
+        [Prompt("Did you enjoy your visit in our office?")]
         public bool DidYouEnjoy;
 
         [Prompt("Oh, why not?")]

@@ -11,6 +11,6 @@ namespace Pospa.NET.SmartOffice.MSBandDispatcher
             StepCount = steps;
         }
 
-        public long StepCount { get; private set; }
+        public long StepCount { get; set; }
     }
 }

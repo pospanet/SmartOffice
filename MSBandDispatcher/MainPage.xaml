@@ -9,6 +9,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ListView x:Name="BandList" Margin="0,55,0,0"/>
         <Button x:Name="btnGo" IsEnabled="False" Content="Start Tout" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Click="btnGo_Click"/>
+        <TextBlock x:Name="lblDeviceName" HorizontalAlignment="Left" Margin="150,10,0,0" TextWrapping="Wrap" Text="Device name: {0}" VerticalAlignment="Top"/>
 
     </Grid>
 </Page>

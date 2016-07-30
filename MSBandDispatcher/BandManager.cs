@@ -43,7 +43,7 @@ namespace Pospa.NET.SmartOffice.MSBandDispatcher
 
         private void Pedometer_ReadingChanged(object sender, BandSensorReadingEventArgs<IBandPedometerReading> e)
         {
-            _lastStepCount = e.SensorReading.StepsToday;
+            _lastStepCount = e.SensorReading.TotalSteps;
             if (_initialStepCount == 0)
             {
                 _initialStepCount = _lastStepCount;
@@ -57,7 +57,7 @@ namespace Pospa.NET.SmartOffice.MSBandDispatcher
         private long _initialStepCount;
         private long _lastStepCount;
         public string GuestId => Band.Name.Split(' ').Last();
-        public string GroupId => ClientDeviceInformation.FriendlyName;
+        public static string GroupId => ClientDeviceInformation.FriendlyName;
         public long StepCount => _lastStepCount - _initialStepCount;
 
         public int LastValue

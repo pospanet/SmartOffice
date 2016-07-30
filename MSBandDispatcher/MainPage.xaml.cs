@@ -22,7 +22,11 @@ namespace Pospa.NET.SmartOffice.MSBandDispatcher
             InitializeComponent();
             InitBandsAsync()
                 .ContinueWith(t => ListBandsAsync(t.Result, BandList)
-                    .ContinueWith(t2 => EnableTourAsync()));
+                    .ContinueWith(t2 => EnableTourAsync().ContinueWith(t3=>Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                        () =>
+                        {
+                            lblDeviceName.Text = string.Format(lblDeviceName.Text, BandManager.GroupId);
+                        }))));
         }
 
         private async Task EnableTourAsync()
@@ -96,7 +100,7 @@ namespace Pospa.NET.SmartOffice.MSBandDispatcher
                 {
                     await bandManager.StopReadingAsync();
                     await bandManager.ShowIdAsync();
-                    await SaveDataToAzureAsync(bandManager.GuestId, bandManager.GroupId, bandManager.StepCount);
+                    await SaveDataToAzureAsync(bandManager.GuestId, BandManager.GroupId, bandManager.StepCount);
                 }
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
@@ -113,7 +117,7 @@ namespace Pospa.NET.SmartOffice.MSBandDispatcher
             CloudTable table = tableClient.GetTableReference("GuidedTourData");
             await table.CreateIfNotExistsAsync();
             AttendeeData data = new AttendeeData(name, group, steps);
-            TableOperation insertOperation = TableOperation.Insert(data);
+            TableOperation insertOperation = TableOperation.InsertOrReplace(data);
             await table.ExecuteAsync(insertOperation);
         }
     }

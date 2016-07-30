@@ -34,14 +34,28 @@ namespace Pospa.NET.SmartOffice.MSBandDispatcher
             Band = band;
             Client = client;
             LastValue = 0;
+            _initialStepCount = 0;
+            _lastStepCount = 0;
             ReadingLocked = false;
             Client.SensorManager.HeartRate.ReadingChanged += HeartRate_ReadingChanged;
+            Client.SensorManager.Pedometer.ReadingChanged += Pedometer_ReadingChanged;
+        }
+
+        private void Pedometer_ReadingChanged(object sender, BandSensorReadingEventArgs<IBandPedometerReading> e)
+        {
+            _lastStepCount = e.SensorReading.StepsToday;
+            if (_initialStepCount == 0)
+            {
+                _initialStepCount = _lastStepCount;
+            }
         }
 
         private IBandInfo Band { get; }
 
         private IBandClient Client { get; }
         private int _lastValue;
+        private int _initialStepCount;
+        private int _lastStepCount;
 
         public int LastValue
         {
@@ -93,12 +107,15 @@ namespace Pospa.NET.SmartOffice.MSBandDispatcher
 
         public async Task StartReadingAsync()
         {
+            _initialStepCount = 0;
             await Client.SensorManager.HeartRate.StartReadingsAsync();
+            await Client.SensorManager.Pedometer.StartReadingsAsync();
         }
 
         public async Task StopReadingAsync()
         {
             await Client.SensorManager.HeartRate.StopReadingsAsync();
+            await Client.SensorManager.Pedometer.StopReadingsAsync();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

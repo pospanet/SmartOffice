@@ -141,6 +141,19 @@
       "metadata": {
         "description": "Name of device-to-cloud consumer group to provision on the IoT Hub instance."
       }
+    },
+    "storageAccountType": {
+      "type": "string",
+      "defaultValue": "Standard_LRS",
+      "allowedValues": [
+        "Standard_LRS",
+        "Standard_GRS",
+        "Standard_ZRS",
+        "Premium_LRS"
+      ],
+      "metadata": {
+        "description": "Storage Account type"
+      }
     }
   },
 
@@ -149,7 +162,8 @@
     "location": "[resourceGroup().location]",
     "ehVersion": "[parameters('serviceBusApiVersion')]",
     "defaultSASKeyName": "RootManageSharedAccessKey",
-    "authRuleResourceId": "[resourceId('Microsoft.EventHub/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]"
+    "authRuleResourceId": "[resourceId('Microsoft.EventHub/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]",
+    "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'standardsa')]"
   },
 
   "resources": [
@@ -261,6 +275,18 @@
       ],
       "name": "[concat(parameters('iotHubName'), '/events/',parameters('d2cConsumerGroupName'))]",
       "type": "Microsoft.Devices/iotHubs/eventhubEndpoints/ConsumerGroups"
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[variables('storageAccountName')]",
+      "apiVersion": "2016-01-01",
+      "location": "[resourceGroup().location]",
+      "sku": {
+        "name": "[parameters('storageAccountType')]"
+      },
+      "kind": "Storage",
+      "properties": {
+      }
     }
   ],
 
@@ -282,6 +308,10 @@
     "iotHubKeys": {
       "value": "[listKeys(resourceId('Microsoft.Devices/iotHubs', parameters('iotHubName')), variables('apiVersion'))]",
       "type": "object"
+    },
+    "storageAccountName": {
+      "type": "string",
+      "value": "[variables('storageAccountName')]"
     }
   }
 }

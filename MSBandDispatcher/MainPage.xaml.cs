@@ -94,6 +94,7 @@ namespace Pospa.NET.SmartOffice.MSBandDispatcher
                 {
                     await bandManager.StopReadingAsync();
                     await bandManager.ShowIdAsync();
+
                 }
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {

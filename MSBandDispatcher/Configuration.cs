@@ -7,7 +7,7 @@ namespace Pospa.NET.SmartOffice.MSBandDispatcher
         private const string EventHubHostname = "<EventHub Hostname>";
         private const string DeviceId = "<Device ID>";
         private const string DeviceToken = "<SAS>";
-        private const string EventHubConnectionSring = "<EventHub Connection string>";
+        private const string EventHubConnectionSring = "<EventHub connection string>";
 
         public static class EventHub
         {

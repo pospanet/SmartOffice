@@ -5,35 +5,33 @@
     "contentVersion": "1.0.0.0",
 
   "parameters": {
-
     "serviceBusNamespaceName": {
 
       "value": "SmartOfficeDxTr2016czech"
 
     },
-
     "serviceBusEventHubName": {
 
       "value": "SmartOffice"
 
     },
-
     "serviceBusConsumerGroupName": {
 
       "value": "default"
 
     },
-
     "serviceBusApiVersion": {
 
       "value": "2015-08-01"
 
     },
-
     "iotHubName": {
 
       "value": "dxtr2016SmartOfficeIotHub"
 
+    },
+    "storageAccountType": {
+      "value": "Standard_GRS"
     }
   }
 

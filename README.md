@@ -16,12 +16,13 @@ Use this solution in many different scenarios where is desirable to monitor for 
 - [Power BI](https://powerbi.microsoft.com/)
 - [Microsoft Bot Framework](https://dev.botframework.com/)
 
-## Feedback Bot screenshot: 
+## Feedback BOT screenshot: 
 ![alt tag](https://github.com/pospanet/SmartOffice/blob/master/Documentation/SOBSkypeScreen.png)
 
-## PowerBI screenshot: 
+## PowerBI screenshot:
 ![alt tag](https://github.com/pospanet/SmartOffice/blob/master/Documentation/PowerBICapture.png)
 
 ## MS Band app screenshot: 
+TBD
 TBD
 

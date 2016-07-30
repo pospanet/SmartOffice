@@ -22,7 +22,5 @@ Use this solution in many different scenarios where is desirable to monitor for 
 ## PowerBI screenshot:
 ![alt tag](https://github.com/pospanet/SmartOffice/blob/master/Documentation/PowerBICapture.png)
 
-## MS Band app screenshot: 
-TBD
-TBD
+
 

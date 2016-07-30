@@ -54,8 +54,11 @@ namespace Pospa.NET.SmartOffice.MSBandDispatcher
 
         private IBandClient Client { get; }
         private int _lastValue;
-        private int _initialStepCount;
-        private int _lastStepCount;
+        private long _initialStepCount;
+        private long _lastStepCount;
+        public string GuestId => Band.Name.Split(' ').Last();
+        public string GroupId => ClientDeviceInformation.FriendlyName;
+        public long StepCount => _lastStepCount - _initialStepCount;
 
         public int LastValue
         {
@@ -128,7 +131,7 @@ namespace Pospa.NET.SmartOffice.MSBandDispatcher
 
         public async Task ShowIdAsync()
         {
-            await Client.NotificationManager.ShowDialogAsync(TileGuid, "Guest ID", Band.Name.Split(' ').Last());
+            await Client.NotificationManager.ShowDialogAsync(TileGuid, "Guest ID", GuestId);
             await Client.NotificationManager.VibrateAsync(VibrationType.ThreeToneHigh);
         }
 

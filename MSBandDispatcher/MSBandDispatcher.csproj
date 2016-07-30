@@ -95,6 +95,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AttendeeData.cs" />
     <Compile Include="BandManager.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="MainPage.xaml.cs">

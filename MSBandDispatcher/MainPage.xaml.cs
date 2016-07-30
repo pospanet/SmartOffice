@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Microsoft.Band;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Table;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -94,7 +96,7 @@ namespace Pospa.NET.SmartOffice.MSBandDispatcher
                 {
                     await bandManager.StopReadingAsync();
                     await bandManager.ShowIdAsync();
-
+                    await SaveDataToAzureAsync(bandManager.GuestId, bandManager.GroupId, bandManager.StepCount);
                 }
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
@@ -102,6 +104,17 @@ namespace Pospa.NET.SmartOffice.MSBandDispatcher
                     btnGo.IsEnabled = true;
                 }); btnGo.Tag = null;
             }
+        }
+
+        private static async Task SaveDataToAzureAsync(string name, string group, long steps)
+        {
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(Configuration.StorageAccount.ConnectionString);
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+            CloudTable table = tableClient.GetTableReference("GuidedTourData");
+            await table.CreateIfNotExistsAsync();
+            AttendeeData data = new AttendeeData(name, group, steps);
+            TableOperation insertOperation = TableOperation.Insert(data);
+            await table.ExecuteAsync(insertOperation);
         }
     }
 }

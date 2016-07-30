@@ -26,13 +26,7 @@ namespace SmartOffice.Bot
         {
             if (activity.Type == ActivityTypes.Message)
             {
-                //ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));
-                //var feedbackForm = new FormDialog<JObject>(new JObject(), DynamicFeedbackForm.BuildFormFromJson, FormOptions.PromptInStart, null);
-
                 await Conversation.SendAsync(activity, () => new MainDialog());
-
-                //await Conversation.SendAsync(activity, MakeRootDialog);
-
             }
             else
             {

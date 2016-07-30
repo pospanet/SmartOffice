@@ -59,13 +59,15 @@ namespace SmartOffice.Bot.Forms
 
         public static IForm<FeedbackForm> BuildForm()
         {
-            return new FormBuilder<FeedbackForm>().Message("Please answer a few questions.")
+            return new FormBuilder<FeedbackForm>()
                 .Field(nameof(DidYouEnjoy))
                 .Message("I'm glad to hear that!", (state) => state.DidYouEnjoy == true)
                 .Field(nameof(WhyNotEnjoy), (state) => state.DidYouEnjoy == false)
                 .Message("Feedback taken, we will try and make the experience better.", (state) =>  state.DidYouEnjoy == false && state.WhyNotEnjoy != string.Empty)
                 .Field(nameof(BestStation))
+                .Message("Amazing!", (state) => state.BestStation == Stations.All)
                 .Field(nameof(WorstStation))
+                .Message("Wow, that's bad. I'll let the team know to improve.", (state) => state.WorstStation == Stations.All)
                 .Field(nameof(BestTechnology))
                 .Field(nameof(NotEvenTheBot), (state) => state.BestTechnology == Technologies.Nothing, async (state, value) => {
                     if ((bool)value == true)

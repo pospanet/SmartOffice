@@ -18,4 +18,3 @@ Use this solution in many different scenarios where is desirable to monitor for 
 
 ## A sem ještě něco přijde
 .. jen zjištju jak funguje formatovanoi md files
-[GitHub](http://github.com)

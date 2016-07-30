@@ -28,8 +28,13 @@
 
       "value": "2015-08-01"
 
-    }
+    },
 
+    "iotHubName": {
+
+      "value": "dxtr2016SmartOfficeIotHub"
+
+    }
   }
 
 }

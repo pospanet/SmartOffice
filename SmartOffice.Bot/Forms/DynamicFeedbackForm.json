@@ -1,0 +1,15 @@
+﻿{
+  "References": [ "Microsoft.Bot.Sample.AnnotatedSandwichBot.dll" ],
+  "Imports": [ "Microsoft.Bot.Sample.AnnotatedSandwichBot.Resource" ],
+  "type": "object",
+  "required": [],
+  "templates": {
+    "NotUnderstood": {
+      "Patterns": [ "I do not understand \"{0}\".", "Try again, I don't get \"{0}\"." ]
+    }
+  },
+  "properties": {
+
+  },
+  "OnCompletion": "await context.PostAsync(\"We are currently processing your sandwich. We will message you the status.\");"
+}

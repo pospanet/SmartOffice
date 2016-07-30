@@ -16,5 +16,11 @@ Use this solution in many different scenarios where is desirable to monitor for 
 - [Power BI](https://powerbi.microsoft.com/)
 - [Microsoft Bot Framework](https://dev.botframework.com/)
 
-## A sem ještě něco přijde
-.. jen zjištju jak funguje formatovanoi md files
+## Feedback BOT screenshot: 
+![alt tag](https://github.com/pospanet/SmartOffice/blob/master/Documentation/SOBSkypeScreen.png)
+
+## PowerBI screenshot:
+![alt tag](https://github.com/pospanet/SmartOffice/blob/master/Documentation/PowerBICapture.png)
+
+
+

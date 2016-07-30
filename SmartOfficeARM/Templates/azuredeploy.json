@@ -1,11 +1,10 @@
-﻿{  
+﻿{
 
-   "$schema":"http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
 
-   "contentVersion":"1.0.0.0",
+  "contentVersion": "1.0.0.0",
 
-   "parameters":{
-
+  "parameters": {
     "serviceBusNamespaceName": {
 
       "type": "string",
@@ -17,155 +16,302 @@
       }
 
     },
+    "serviceBusEventHubName": {
 
-      "serviceBusEventHubName":{  
+      "type": "string",
 
-         "type":"string",
+      "metadata": {
 
-         "metadata":{  
-
-            "description":"Name of the Event Hub"
-
-         }
-
-      },
-
-      "serviceBusConsumerGroupName":{  
-
-         "type":"string",
-
-         "metadata":{  
-
-            "description":"Name of the Consumer Group"
-
-         }
-
-      },
-
-      "serviceBusApiVersion":{  
-
-         "type":"string",
-
-         "defaultValue":"2015-08-01",
-
-         "metadata":{  
-
-            "description":"Service Bus ApiVersion used by the template"
-
-         }
+        "description": "Name of the Event Hub"
 
       }
 
-   },
+    },
+    "serviceBusConsumerGroupName": {
 
-   "variables":{  
+      "type": "string",
 
-      "location":"[resourceGroup().location]",
+      "metadata": {
 
-      "ehVersion":"[parameters('serviceBusApiVersion')]",
+        "description": "Name of the Consumer Group"
 
-      "defaultSASKeyName":"RootManageSharedAccessKey",
+      }
 
-      "authRuleResourceId":"[resourceId('Microsoft.EventHub/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]"
+    },
+    "serviceBusApiVersion": {
 
-   },
+      "type": "string",
 
-   "resources":[  
+      "defaultValue": "2015-08-01",
 
-      {  
+      "metadata": {
 
-         "apiVersion":"[variables('ehVersion')]",
+        "description": "Service Bus ApiVersion used by the template"
 
-         "name":"[parameters('serviceBusNamespaceName')]",
+      }
 
-         "type":"Microsoft.EventHub/Namespaces",
+    },
+    "iotHubName": {
+      "type": "string",
+      "minLength": 3,
+      "metadata": {
+        "description": "Name of the IoT Hub instance to provision."
+      }
+    },
+    "skuName": {
+      "type": "string",
+      "allowedValues": [
+        "F1",
+        "S1",
+        "S2"
+      ],
+      "defaultValue": "F1",
+      "metadata": {
+        "description": "One of the supported SKUs: F1, S1 or S2"
+      }
+    },
+    "capacityUnits": {
+      "type": "int",
+      "minValue": 1,
+      "defaultValue": 1,
+      "metadata": {
+        "description": "Number of desired IoT Hub units. Restricted to 1 unit for F1. Can be set up to maximum number allowed for subscription."
+      }
+    },
+    "d2cMessageRetentionInDaysPeriod": {
+      "type": "int",
+      "minValue": 1,
+      "maxValue": 7,
+      "defaultValue": 1,
+      "metadata": {
+        "description": "Retention time in days for device-to-cloud messages."
+      }
+    },
+    "d2cPartitionCount": {
+      "type": "int",
+      "minValue": 2,
+      "defaultValue": 2,
+      "metadata": {
+        "description": "Number of desired partitions for device-to-cloud event ingestion."
+      }
+    },
+    "c2dMessagesTTLAsIso8601": {
+      "type": "string",
+      "defaultValue": "PT1H",
+      "metadata": {
+        "description": "Default TTL in ISO_8601 format for cloud-to-device messages. The value can range from PT1M to PT2D (or any other format as per ISO_8601 standards for duration)."
+      }
+    },
+    "c2dMessagesMaxDeliveryCount": {
+      "type": "int",
+      "minValue": 1,
+      "maxValue": 100,
+      "defaultValue": 10,
+      "metadata": {
+        "description": "Maximum delivery count for cloud-to-device messages per-device queues."
+      }
+    },
+    "c2dFeebackMessagesTTLAsIso8601": {
+      "type": "string",
+      "defaultValue": "PT1H",
+      "metadata": {
+        "description": "TTL in ISO_8601 format for service-bound feedback messages. The value can range from PT1M to PT2D (or any other format as per ISO_8601 standards for duration)."
+      }
+    },
+    "c2dFeedbackMessagesMaxDeliveryCount": {
+      "type": "int",
+      "minValue": 1,
+      "maxValue": 100,
+      "defaultValue": 10,
+      "metadata": {
+        "description": "Maximum delivery count for feedback queue."
+      }
+    },
+    "c2dFeedbackMessagesLockDurationAsIso8601": {
+      "type": "string",
+      "defaultValue": "PT60S",
+      "metadata": {
+        "description": "Lock duration in ISO_8601 format for service-bound feedback messages. The value can range from PT5S to PT300S (or any other format as per ISO_8601 standards for duration)."
+      }
+    },
+    "d2cConsumerGroupName": {
+      "type": "string",
+      "minLength": 3,
+      "defaultValue": "cg1",
+      "metadata": {
+        "description": "Name of device-to-cloud consumer group to provision on the IoT Hub instance."
+      }
+    },
+    "storageAccountType": {
+      "type": "string",
+      "defaultValue": "Standard_LRS",
+      "allowedValues": [
+        "Standard_LRS",
+        "Standard_GRS",
+        "Standard_ZRS",
+        "Premium_LRS"
+      ],
+      "metadata": {
+        "description": "Storage Account type"
+      }
+    }
+  },
 
-         "location":"[variables('location')]",
+  "variables": {
+    "apiVersion": "2016-02-03",
+    "location": "[resourceGroup().location]",
+    "ehVersion": "[parameters('serviceBusApiVersion')]",
+    "defaultSASKeyName": "RootManageSharedAccessKey",
+    "authRuleResourceId": "[resourceId('Microsoft.EventHub/namespaces/authorizationRules', parameters('serviceBusNamespaceName'), variables('defaultSASKeyName'))]",
+    "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'standardsa')]"
+  },
 
-         "kind":"EventHub",
+  "resources": [
+    {
 
-         "sku":{  
+      "apiVersion": "[variables('ehVersion')]",
 
-            "name":"Standard",
+      "name": "[parameters('serviceBusNamespaceName')]",
 
-            "tier":"Standard"
+      "type": "Microsoft.EventHub/Namespaces",
 
-         },
+      "location": "[variables('location')]",
 
-         "resources":[  
+      "kind": "EventHub",
 
-            {  
+      "sku": {
 
-               "apiVersion":"[variables('ehVersion')]",
+        "name": "Standard",
 
-               "name":"[parameters('serviceBusEventHubName')]",
+        "tier": "Standard"
 
-               "type":"EventHubs",
+      },
 
-               "dependsOn":[  
+      "resources": [
 
-                  "[concat('Microsoft.EventHub/namespaces/', parameters('serviceBusNamespaceName'))]"
+        {
 
-               ],
+          "apiVersion": "[variables('ehVersion')]",
 
-               "properties":{  
+          "name": "[parameters('serviceBusEventHubName')]",
 
-                  "path":"[parameters('serviceBusEventHubName')]"
+          "type": "EventHubs",
 
-               },
+          "dependsOn": [
 
-               "resources":[  
+            "[concat('Microsoft.EventHub/namespaces/', parameters('serviceBusNamespaceName'))]"
 
-                  {  
+          ],
 
-                     "apiVersion":"[variables('ehVersion')]",
+          "properties": {
 
-                     "name":"[parameters('serviceBusConsumerGroupName')]",
+            "path": "[parameters('serviceBusEventHubName')]"
 
-                     "type":"ConsumerGroups",
+          },
 
-                     "dependsOn":[  
+          "resources": [
 
-                        "[parameters('serviceBusEventHubName')]"
+            {
 
-                     ],
+              "apiVersion": "[variables('ehVersion')]",
 
-                     "properties":{  
+              "name": "[parameters('serviceBusConsumerGroupName')]",
+
+              "type": "ConsumerGroups",
+
+              "dependsOn": [
+
+                "[parameters('serviceBusEventHubName')]"
+
+              ],
+
+              "properties": {
 
 
 
-                     }
-
-                  }
-
-               ]
+              }
 
             }
 
-         ]
+          ]
 
-      }
+        }
 
-   ],
+      ]
 
-   "outputs":{  
-
-      "NamespaceConnectionString":{  
-
-         "type":"string",
-
-         "value":"[listkeys(variables('authRuleResourceId'), variables('ehVersion')).primaryConnectionString]"
-
+    },
+    {
+      "apiVersion": "[variables('apiVersion')]",
+      "location": "[variables('location')]",
+      "name": "[parameters('iotHubName')]",
+      "properties": {
+        "eventHubEndpoints": {
+          "events": {
+            "retentionTimeInDays": "[parameters('d2cMessageRetentionInDaysPeriod')]",
+            "partitionCount": "[parameters('d2cPartitionCount')]"
+          }
+        },
+        "cloudToDevice": {
+          "defaultTtlAsIso8601": "[parameters('c2dMessagesTTLAsIso8601')]",
+          "maxDeliveryCount": "[parameters('c2dMessagesMaxDeliveryCount')]",
+          "feedback": {
+            "maxDeliveryCount": "[parameters('c2dFeedbackMessagesMaxDeliveryCount')]",
+            "ttlAsIso8601": "[parameters('c2dFeebackMessagesTTLAsIso8601')]",
+            "lockDurationAsIso8601": "[parameters('c2dFeedbackMessagesLockDurationAsIso8601')]"
+          }
+        },
+        "location": "[resourceGroup().location]"
       },
-
-      "SharedAccessPolicyPrimaryKey":{  
-
-         "type":"string",
-
-         "value":"[listkeys(variables('authRuleResourceId'), variables('ehVersion')).primaryKey]"
-
+      "sku": {
+        "name": "[parameters('skuName')]",
+        "capacity": "[parameters('capacityUnits')]"
+      },
+      "type": "Microsoft.Devices/iotHubs"
+    },
+    {
+      "apiVersion": "[variables('apiVersion')]",
+      "dependsOn": [
+        "[concat('Microsoft.Devices/iothubs/', parameters('iotHubName'))]"
+      ],
+      "name": "[concat(parameters('iotHubName'), '/events/',parameters('d2cConsumerGroupName'))]",
+      "type": "Microsoft.Devices/iotHubs/eventhubEndpoints/ConsumerGroups"
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "name": "[variables('storageAccountName')]",
+      "apiVersion": "2016-01-01",
+      "location": "[resourceGroup().location]",
+      "sku": {
+        "name": "[parameters('storageAccountType')]"
+      },
+      "kind": "Storage",
+      "properties": {
       }
+    }
+  ],
 
-   }
+  "outputs": {
+    "NamespaceConnectionString": {
 
+      "type": "string",
+
+      "value": "[listkeys(variables('authRuleResourceId'), variables('ehVersion')).primaryConnectionString]"
+
+    },
+    "SharedAccessPolicyPrimaryKey": {
+
+      "type": "string",
+
+      "value": "[listkeys(variables('authRuleResourceId'), variables('ehVersion')).primaryKey]"
+
+    },
+    "iotHubKeys": {
+      "value": "[listKeys(resourceId('Microsoft.Devices/iotHubs', parameters('iotHubName')), variables('apiVersion'))]",
+      "type": "object"
+    },
+    "storageAccountName": {
+      "type": "string",
+      "value": "[variables('storageAccountName')]"
+    }
+  }
 }

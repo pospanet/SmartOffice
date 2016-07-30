@@ -11,7 +11,16 @@ Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "SmartOfficeARM", "SmartOffi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{AFF62BA3-3A34-4997-BD52-C7D2D4FCF96E}"
 	ProjectSection(SolutionItems) = preProject
+		Documentation\BotFlow.vsdx = Documentation\BotFlow.vsdx
+		Documentation\Burischema.jpg = Documentation\Burischema.jpg
+		Documentation\Burischema.png = Documentation\Burischema.png
+		Documentation\GuideVisitBandBot_SmartOffice.pptx = Documentation\GuideVisitBandBot_SmartOffice.pptx
 		Documentation\ReadMe.txt = Documentation\ReadMe.txt
+		Documentation\Smart_Bot_Ico.png = Documentation\Smart_Bot_Ico.png
+		Documentation\SOBSkypeScreen.png = Documentation\SOBSkypeScreen.png
+		Documentation\SOIco24x24.png = Documentation\SOIco24x24.png
+		Documentation\SOIco46x46.png = Documentation\SOIco46x46.png
+		Documentation\SOIco48x48.png = Documentation\SOIco48x48.png
 	EndProjectSection
 EndProject
 Global

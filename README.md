@@ -9,12 +9,12 @@ Use this solution in many different scenarios where is desirable to monitor for 
 ![alt tag](https://github.com/pospanet/SmartOffice/blob/master/Documentation/Burischema.png)
 
 ## Technologies:
-- Microsoft Band [link](https://www.microsoft.com/microsoft-band "Microsoft Band") 
-- Microsoft Band SDK [link](https://developer.microsoftband.com/bandsdk "Microsoft Band SDK") 
+- [Microsoft Band](https://www.microsoft.com/microsoft-band) 
+- [Microsoft Band SDK](https://developer.microsoftband.com/bandsdk) 
 - [Visual Studio 2015](https://www.visualstudio.com/)
-- Azure, Azure IOT Hub, Azure Stream Analytics
-- Power BI
-- Microsoft Bot Framework
+ -[Azure, Azure IOT Hub, Azure Stream Analytics](https://azure.microsoft.com/en-us/suites/iot-suite/)
+- [Power BI](https://powerbi.microsoft.com/)
+- [Microsoft Bot Framework](https://dev.botframework.com/)
 
 ## A sem ještě něco přijde
 .. jen zjištju jak funguje formatovanoi md files

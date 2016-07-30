@@ -29,6 +29,7 @@ namespace SmartOffice.Bot.Dialogs
             //botStateClient = activity.GetStateClient();
             //botData = await botStateClient.BotState.GetUserDataAsync(activity.ChannelId, activity.From.Id);
 
+
             if (!context.ConversationData.TryGetValue("Code", out Code))
             {
                 PromptDialog.Text(context, sessionEntered, "Do I know you? Please enter the code they gave you after the tour.");
@@ -55,11 +56,12 @@ namespace SmartOffice.Bot.Dialogs
             {
                 var questionFormDialog = Chain.From(() => FormDialog.FromForm(FeedbackForm.BuildForm));
                 context.Call(questionFormDialog, afterForm);
+                //context.Call(FormDialog.FromForm(FeedbackForm.BuildForm), afterForm);
             }
             else
             {
                 await context.PostAsync("Nice to see you again. Are you interested in anything regarding your tour?");
-                await context.PostAsync("Feel free to ask tings like:\n* How tall is the building?\n* How many people work here?");
+                await context.PostAsync("Feel free to ask tings like:\n\r* How tall is the building?\n\r* How many people work here?");
                 context.Wait(SearchMessageReceived);
             }
         }
@@ -68,7 +70,7 @@ namespace SmartOffice.Bot.Dialogs
         {
             var activity = await message;
             await context.PostAsync("Great to hear that you are interested in " + activity.Text + ". I don't have the answer yet, though.");
-            context.Done(message);
+            context.Wait(SearchMessageReceived);
         }
 
         private async Task afterForm(IDialogContext context, IAwaitable<FeedbackForm> result)

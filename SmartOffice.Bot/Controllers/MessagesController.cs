@@ -12,6 +12,7 @@ using SmartOffice.Bot.Forms;
 using Microsoft.Bot.Builder.FormFlow;
 using Newtonsoft.Json.Linq;
 using SmartOffice.Bot.Dialogs;
+using System.Diagnostics;
 
 namespace SmartOffice.Bot
 {
@@ -26,6 +27,12 @@ namespace SmartOffice.Bot
         {
             if (activity.Type == ActivityTypes.Message)
             {
+                if (activity.Text == "reset")
+                {
+                    Debug.WriteLine(activity.GetStateClient().BotState.GetConversationData(activity.ChannelId, activity.Conversation.Id).Data);
+                    activity.GetStateClient().BotState.SetConversationData(activity.ChannelId, activity.Conversation.Id, new BotData());
+                }
+
                 await Conversation.SendAsync(activity, () => new MainDialog());
             }
             else

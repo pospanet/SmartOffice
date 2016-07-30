@@ -11,3 +11,8 @@ Technologies:
 - Power BI
 - Microsoft Bot Framework
 
+High level architecture design:
+ 
+![alt tag](https://github.com/pospanet/SmartOffice/blob/master/Documentation/Burischema.png)
+
+

@@ -47,8 +47,6 @@ namespace SmartOffice.Bot.Services
 
         public Tuple<int, int> GetTourInfo(string userCode)
         {
-            var csa = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=hmt6hlflo3ypestandardsa;AccountKey=P2uD5F6MfjdybCqYbIIIIqGnsCZX//DKQQCaPsDD/ZZQJjHFqi/qnLmwhk9BdyFB4uzfKdh14XXpvxeaerU5mg==");
-            var tableClient = csa.CreateCloudTableClient();
             var infoTable = tableClient.GetTableReference("GuidedTourData");
 
             TableQuery<AttendeeDataEntity> queryOne = new TableQuery<AttendeeDataEntity>().Where(TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, userCode));
@@ -59,11 +57,6 @@ namespace SmartOffice.Bot.Services
             TableQuery<AttendeeDataEntity> queryTotal = new TableQuery<AttendeeDataEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, one.PartitionKey));
             var resTotal = infoTable.ExecuteQuery(queryTotal);
             totalSteps = resTotal.Sum(e => (int)e.StepCount);
-
-            //foreach (var total in resTotal)
-            //{
-
-            //}
 
             return new Tuple<int, int>((int)one.StepCount, totalSteps);
         }

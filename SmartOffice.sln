@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentat
 		Documentation\GuideVisitBandBot_SmartOffice.pptx = Documentation\GuideVisitBandBot_SmartOffice.pptx
 		Documentation\ReadMe.txt = Documentation\ReadMe.txt
 		Documentation\Smart_Bot_Ico.png = Documentation\Smart_Bot_Ico.png
+		Documentation\Smart_Bot_Ico_small.png = Documentation\Smart_Bot_Ico_small.png
 		Documentation\SOBSkypeScreen.png = Documentation\SOBSkypeScreen.png
 		Documentation\SOIco24x24.png = Documentation\SOIco24x24.png
 		Documentation\SOIco46x46.png = Documentation\SOIco46x46.png

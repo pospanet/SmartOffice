@@ -183,6 +183,7 @@
     <Content Include="Forms\DynamicFeedbackForm.json" />
     <None Include="Forms\sampleSchema.json" />
     <Content Include="Global.asax" />
+    <Content Include="Static\feedback.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

@@ -11,7 +11,7 @@ namespace SmartOffice.Bot.Forms
     public enum Stations
     {
         [Describe("Azure Wall", "https://czsmartoffice.blob.core.windows.net/images/MS.AzureWall.foto.jpg")]
-        AzureWall,
+        AzureWall = 1,
         [Describe("Living Room", "https://czsmartoffice.blob.core.windows.net/images/MS.Livingroom.foto.jpg")]
         LivingRoom,
         GalleryWall,
@@ -23,14 +23,14 @@ namespace SmartOffice.Bot.Forms
 
     public enum Technologies
     {
-        Azure, PowerBI, CortanaIntelligenceSuite, Office365, SkypeForBusiness, TheBot, Nothing
+        Azure = 1, PowerBI, CortanaIntelligenceSuite, Office365, SkypeForBusiness, TheBot, Nothing
     }
 
     [Serializable]
     [Template(TemplateUsage.EnumSelectOne, "{&} {||}", FieldCase=CaseNormalization.None)]
     public class FeedbackForm
     {
-        [Prompt("Did you enjoy your visit in our office?")]
+        [Prompt("Did you enjoy your visit in our office? {||}")]
         public bool DidYouEnjoy;
 
         [Prompt("Oh, why not?")]
@@ -45,13 +45,13 @@ namespace SmartOffice.Bot.Forms
         [Describe("What about technologies? Were any of them interesting to you?")]
         public Technologies BestTechnology;
 
-        [Prompt("Really nothing? Do you at least like me - the bot?")]
+        [Prompt("Really nothing? Do you at least like me - the bot? {||}")]
         public bool NotEvenTheBot;
 
         [Describe("Back to technologies. Do you think you could use any of those in future?")]
         public Technologies UseInFuture;
 
-        [Prompt("Do you want us to connect you with our professionals within these areas?")]
+        [Prompt("Do you want us to connect you with our professionals within these areas? {||}")]
         public bool ConnectWithUs;
 
         [Prompt("Is there anything else you would like to send as a feedback? I'll forward what you type to the team.")]
